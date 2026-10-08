@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# 运行产物（分析结果不进仓库）
+fundamental_runs/
+restructuring_runs/

@@ -1,0 +1,771 @@
+{
+  "schema": 1,
+  "bank_name": "重组前戏信号排查",
+  "skill_title": "重组前戏 · 信号扫描",
+  "run_label": "重组前戏信号排查",
+  "run_dir_name": "restructuring_runs",
+  "source": {
+    "file": "~/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/e07a1fe3d294a1a35a1b3d51c4c1afc1/Message/MessageTemp/100c537811a8eed78cba725b47e9c805/File/AI咨询基本面偏.emmx",
+    "sha256": "887cb742403853c9f9a166b1f1fd4caaa8b6bff865201ad42b39f039391a7e02",
+    "doc_modified": "2026-10-05 09:50:48",
+    "subtree": "浮动主题『重组前戏』（导图源节点 ID 219）",
+    "subtree_nodes": 21,
+    "in_scope_note": "子树 21 个节点 = 12 个信号节点 + 8 个说明/子形态节点 + 1 个 xxx 占位。12 个信号节点逐条作答（R01–R12）；说明与子形态节点不单独成段，但一律转成对应信号的必答核对项（例如『董秘口径变化』下的两种形态各占一行），因此在报告里不会被吞掉。"
+  },
+  "window": {
+    "default_months": 24,
+    "note": "信号观察窗口默认向前回溯 24 个月（可由 --lookback-months 调整）。所有『是否出现』的判定都必须限定在这个窗口内，并写明窗口起止日。"
+  },
+  "rules": {
+    "as_of": "必须由调用方给定基准日；观察窗口 = 基准日往前 N 个月。",
+    "stage_definition": "『重组前戏』指**正式重组方案公告之前**的铺垫动作。若公司已公告筹划重大资产重组/已停牌进入正式程序，则前戏阶段已结束，必须在结论里明确标注『已进入正式阶段』，不得再当作前戏信号堆叠。",
+    "fact_vs_inference": "每条信号必须区分【已披露事实】与【推断】。公告级事实标 A，公开数据标 B，媒体传闻标 C，纯推断标 D。D 级不得单独支撑『是否出现=出现』的结论。",
+    "tri_state": "每个信号的『是否出现』只允许三选一：出现 / 未出现 / 无法判断。『无法判断』必须写明缺什么信息、去哪能查到。",
+    "counter_evidence": "每条信号都必须写『反向证据或排除理由』——说明为什么这个信号可能只是巧合、行业共性或正常经营行为。只找支持证据的答案视为不合格。",
+    "evidence": "证据必须可回溯：公告全名 + 编号 + 日期，或互动平台日期 + 原文摘录，或数据源 + 链接。",
+    "no_merge": "一个原子核对项一行，禁止把多项合并进一句话。"
+  },
+  "modules": [
+    {
+      "id": "M1",
+      "title": "资本运作信号",
+      "items": [
+        {
+          "id": "R01",
+          "source_type": "SubTopic",
+          "source_text": "突然公告聘请财务顾问、律师等中介机构",
+          "ask": "是否突然公告聘请财务顾问/律师等中介机构",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion",
+              "hint": "三选一：出现 / 未出现 / 无法判断"
+            },
+            {
+              "key": "advisors",
+              "label": "中介机构与类型",
+              "expect": "list",
+              "hint": "逐家列名 + 类型（财务顾问/律所/评估/审计/保荐）"
+            },
+            {
+              "key": "announce_date",
+              "label": "公告日期与编号",
+              "expect": "evidence"
+            },
+            {
+              "key": "relevance",
+              "label": "与重组的相关性说明",
+              "expect": "conclusion",
+              "hint": "公告是否明确指向重大资产重组/收购/出售；不明确就写不明确"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：聘请中介也可能只为再融资、股权激励、年报审计轮换"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text",
+              "hint": "查了哪些渠道、检索词、窗口起止日"
+            }
+          ]
+        },
+        {
+          "id": "R02",
+          "source_type": "SubTopic",
+          "source_text": "大额增资/尽调",
+          "ask": "是否出现大额增资或尽职调查（原图标注：重组前戏最重要之一，摸清资产家底和定身价）",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "amount_valuation",
+              "label": "增资金额与估值",
+              "expect": "number",
+              "hint": "含投前/投后估值与口径"
+            },
+            {
+              "key": "dd_parties",
+              "label": "尽调主体与对象",
+              "expect": "list",
+              "hint": "谁尽调谁、尽调哪些资产"
+            },
+            {
+              "key": "timing",
+              "label": "时间",
+              "expect": "number",
+              "hint": "公告/实施日期"
+            },
+            {
+              "key": "purpose_fit",
+              "label": "是否指向摸清家底与定身价",
+              "expect": "conclusion",
+              "hint": "对应原图子节点『重组前戏最重要之一，摸清资产家底和定身价』"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：增资可能是子公司引战投、补充流动资金"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        },
+        {
+          "id": "R03",
+          "source_type": "SubTopic",
+          "source_text": "一次性清理股权结构，子公司股权，划转，摘牌等“清壳”动作",
+          "ask": "是否出现一次性清理股权结构/子公司股权/划转/摘牌等清壳动作",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "action_types",
+              "label": "具体动作类型",
+              "expect": "list",
+              "hint": "股权划转、子公司股权转让、摘牌/注销、资产剥离、层级压缩等，逐项列"
+            },
+            {
+              "key": "entities_ratio",
+              "label": "涉及主体与股权比例",
+              "expect": "number"
+            },
+            {
+              "key": "announce",
+              "label": "时间与公告",
+              "expect": "evidence"
+            },
+            {
+              "key": "restructuring_meaning",
+              "label": "对重组的意义判断",
+              "expect": "conclusion",
+              "hint": "清壳是否为后续注入/卖壳铺路"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：正常集团架构调整、聚焦主业"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        },
+        {
+          "id": "R04",
+          "source_type": "SubTopic",
+          "source_text": "出售核心资产，卖厂房，卖地块，卖盈利公司换现金",
+          "ask": "是否出售核心资产/厂房/地块/盈利公司换现金",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "targets",
+              "label": "标的名称与类型",
+              "expect": "list",
+              "hint": "核心资产/厂房/地块/盈利子公司，逐项列"
+            },
+            {
+              "key": "deal_amount",
+              "label": "交易金额与评估增值率",
+              "expect": "number"
+            },
+            {
+              "key": "counterparty",
+              "label": "交易对方性质",
+              "expect": "conclusion",
+              "hint": "是否关联方、是否新设主体、是否接盘方背景异常"
+            },
+            {
+              "key": "proceeds_use",
+              "label": "回款与用途",
+              "expect": "conclusion"
+            },
+            {
+              "key": "announce",
+              "label": "时间与公告",
+              "expect": "evidence"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：正常资产处置、盘活低效资产"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M2",
+      "title": "资金与债务信号",
+      "items": [
+        {
+          "id": "R05",
+          "source_type": "SubTopic",
+          "source_text": "账上现金+银行授信突然增加，是否准备“大收购”？",
+          "ask": "账上现金与银行授信是否突然增加，是否在为大收购备弹",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "cash_change",
+              "label": "货币资金余额与变化",
+              "expect": "number",
+              "hint": "期末余额 + 同比/环比变化"
+            },
+            {
+              "key": "credit_change",
+              "label": "银行授信额度与变化",
+              "expect": "number",
+              "hint": "总额度、未使用额度、变化"
+            },
+            {
+              "key": "disclosed_reason",
+              "label": "公司披露的原因",
+              "expect": "conclusion",
+              "hint": "公司在定期报告/公告里如何解释现金与授信增加"
+            },
+            {
+              "key": "acquisition_readiness",
+              "label": "是否指向大收购准备",
+              "expect": "conclusion"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：现金来自募资未投、授信属常规续作"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        },
+        {
+          "id": "R06",
+          "source_type": "SubTopic",
+          "source_text": "债务大洗澡",
+          "ask": "是否出现债务大洗澡（原图标注：提前还贷，债务重组，大笔减持计提）",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "prepayment",
+              "label": "提前还贷金额",
+              "expect": "number",
+              "hint": "对应原图子节点『提前还贷』"
+            },
+            {
+              "key": "debt_restructure",
+              "label": "债务重组安排",
+              "expect": "conclusion",
+              "hint": "对应原图子节点『债务重组』"
+            },
+            {
+              "key": "impairment",
+              "label": "减值计提金额与科目",
+              "expect": "number",
+              "hint": "对应原图子节点『大笔减持计提』；逐科目列"
+            },
+            {
+              "key": "profit_impact",
+              "label": "对当期利润影响",
+              "expect": "number"
+            },
+            {
+              "key": "announce",
+              "label": "时间与公告",
+              "expect": "evidence"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：行业下行导致的正常计提、主动降杠杆"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        },
+        {
+          "id": "R07",
+          "source_type": "SubTopic",
+          "source_text": "公司公告大规模债券发行或银行授信/控股股东质押股权比例大幅提升",
+          "ask": "是否出现大规模债券发行、银行授信激增或控股股东质押比例大幅提升",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion",
+              "hint": "三种形态任一出现即算出现，并注明是哪一种"
+            },
+            {
+              "key": "bond_scale",
+              "label": "债券发行规模与用途",
+              "expect": "number"
+            },
+            {
+              "key": "credit_scale",
+              "label": "银行授信规模与变化",
+              "expect": "number"
+            },
+            {
+              "key": "pledge_ratio",
+              "label": "控股股东质押比例及变化",
+              "expect": "number",
+              "hint": "质押股数/持股数，前后对比"
+            },
+            {
+              "key": "announce",
+              "label": "时间与公告",
+              "expect": "evidence"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：低息置换高息、补充流动资金、质押用于自身经营"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "市场与股权信号",
+      "items": [
+        {
+          "id": "R08",
+          "source_type": "SubTopic",
+          "source_text": "股价异动",
+          "ask": "是否出现股价异动，及监管与公司的后续动作",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion",
+              "hint": "需给出异动判定标准（如连续涨幅偏离值、成交额倍数）"
+            },
+            {
+              "key": "price_move",
+              "label": "异动区间涨幅与换手",
+              "expect": "number",
+              "hint": "区间涨跌幅、换手率、成交额"
+            },
+            {
+              "key": "window",
+              "label": "异动起始日与持续交易日",
+              "expect": "number"
+            },
+            {
+              "key": "inquiry",
+              "label": "是否收到关注函或问询",
+              "expect": "conclusion",
+              "hint": "含函件日期与公司回复要点"
+            },
+            {
+              "key": "halt_check",
+              "label": "是否伴随停牌核查",
+              "expect": "conclusion"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：行业普涨、指数同步、题材轮动、业绩驱动"
+            },
+            {
+              "key": "source",
+              "label": "证据来源",
+              "expect": "evidence"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        },
+        {
+          "id": "R09",
+          "source_type": "SubTopic",
+          "source_text": "控股股东变更",
+          "ask": "是否发生控股股东变更（原图标注：老股东退出新股东进场，同时董监高换血）",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "parties_ratio",
+              "label": "新老股东与受让比例价格",
+              "expect": "number",
+              "hint": "出让方、受让方、股数、比例、单价、总价"
+            },
+            {
+              "key": "control_change",
+              "label": "是否构成控制权变更",
+              "expect": "conclusion",
+              "hint": "对应原图子节点『老股东退出新股东进场』"
+            },
+            {
+              "key": "management_turnover",
+              "label": "董监高变动情况",
+              "expect": "number",
+              "hint": "对应原图子节点『董监高换血』：逐人列岗位与辞职/聘任时间"
+            },
+            {
+              "key": "announce",
+              "label": "时间与公告",
+              "expect": "evidence"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：国资整合、家族传承、财务投资人退出"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M4",
+      "title": "行为与口径信号",
+      "items": [
+        {
+          "id": "R10",
+          "source_type": "SubTopic",
+          "source_text": "董秘风口变化",
+          "ask": "董秘/互动平台口径是否发生微妙变化",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "form_ambiguous",
+              "label": "形态①模糊表态是否出现",
+              "expect": "conclusion",
+              "hint": "对应原图子节点：『公司正在研究战略转型』『评估资产整合方案』『与相关方探讨合作可能性，但尚无明确计划』，逐句核对是否出现"
+            },
+            {
+              "key": "form_nochange",
+              "label": "形态②暂无变化或不回复是否出现",
+              "expect": "conclusion",
+              "hint": "对应原图子节点：『暂无变以公告为准或不回复』"
+            },
+            {
+              "key": "quotes",
+              "label": "具体问答记录",
+              "expect": "evidence",
+              "hint": "平台名称 + 提问日期 + 原文摘录"
+            },
+            {
+              "key": "before_after",
+              "label": "与历史口径的对比",
+              "expect": "conclusion",
+              "hint": "同一问题在此前如何回答、现在如何回答"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：回复变模糊是合规口径收紧、董秘更换导致的风格变化"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text",
+              "hint": "互动易/上证e互动检索路径与关键词"
+            }
+          ]
+        },
+        {
+          "id": "R11",
+          "source_type": "SubTopic",
+          "source_text": "频繁停牌小事",
+          "ask": "是否频繁出现小额停牌（原图标注：筹划对外投资小额停牌练手 / 针对市场传闻申请停牌核实）",
+          "elements": [
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion"
+            },
+            {
+              "key": "halt_count",
+              "label": "停牌次数与累计天数",
+              "expect": "number"
+            },
+            {
+              "key": "form_investment",
+              "label": "是否为筹划对外投资类小额停牌",
+              "expect": "conclusion",
+              "hint": "对应原图子节点『筹划对外投资 小额停牌练手』"
+            },
+            {
+              "key": "form_rumor",
+              "label": "是否为传闻澄清类停牌",
+              "expect": "conclusion",
+              "hint": "对应原图子节点『针对市场传闻申请停牌核实』"
+            },
+            {
+              "key": "halt_details",
+              "label": "停牌事由与时间",
+              "expect": "list",
+              "hint": "逐次列：事由、起止日、复牌公告"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：监管要求的常规核查、重大合同谈判"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        },
+        {
+          "id": "R12",
+          "source_type": "SubTopic",
+          "source_text": "招聘信息泄露",
+          "needs_input": true,
+          "ask": "是否出现与重组/转型匹配的异常招聘（原图子节点『大量招 XX岗位』中的 XX 未填）",
+          "elements": [
+            {
+              "key": "needs_input",
+              "label": "待补输入",
+              "expect": "text",
+              "hint": "原图 xxx 位置缺『XX 岗位』：必须显式写出需要用户补齐什么，不得替用户猜"
+            },
+            {
+              "key": "appeared",
+              "label": "是否出现",
+              "expect": "conclusion",
+              "hint": "在待补输入明确前，按通用口径（重组/并购/资本运作/新业务方向岗位）判定并标注口径"
+            },
+            {
+              "key": "positions",
+              "label": "岗位类型与数量",
+              "expect": "list"
+            },
+            {
+              "key": "channel_time",
+              "label": "招聘渠道与时间",
+              "expect": "evidence"
+            },
+            {
+              "key": "linkage",
+              "label": "与重组或转型的关联推断",
+              "expect": "conclusion",
+              "hint": "必须标注为【推断 D 级】，不得当作已披露事实"
+            },
+            {
+              "key": "counter",
+              "label": "反向证据或排除理由",
+              "expect": "conclusion",
+              "hint": "如：正常业务扩张、常规补员、代招信息不实"
+            },
+            {
+              "key": "access_path",
+              "label": "取数路径",
+              "expect": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": {
+    "id": "RB",
+    "title": "重组前戏信号总表与综合判定",
+    "after_module": "M4",
+    "min_rows": 13,
+    "note": "R01–R12 回答完后必须附本表：逐信号一行，给出是否出现/关键证据/时间/强度评分；再给时间线与综合结论。本表不单独计入节点分母，但缺表或行数不足则整个运行判不合格。",
+    "columns": [
+      "信号",
+      "是否出现",
+      "关键证据（含日期）",
+      "出现时间",
+      "强度(1-5)",
+      "证据等级(A/B/C/D)"
+    ],
+    "dimensions": [
+      {
+        "key": "R01",
+        "label": "R01 聘请中介机构",
+        "criterion": "公告聘请财务顾问/律所且指向资本运作"
+      },
+      {
+        "key": "R02",
+        "label": "R02 大额增资或尽调",
+        "criterion": "增资/尽调指向摸清家底与定身价"
+      },
+      {
+        "key": "R03",
+        "label": "R03 清壳动作",
+        "criterion": "股权划转、子公司股权处置、摘牌注销"
+      },
+      {
+        "key": "R04",
+        "label": "R04 出售核心资产",
+        "criterion": "卖核心资产/厂房/地块/盈利公司换现金"
+      },
+      {
+        "key": "R05",
+        "label": "R05 现金与授信突增",
+        "criterion": "货币资金或银行授信异常增加"
+      },
+      {
+        "key": "R06",
+        "label": "R06 债务大洗澡",
+        "criterion": "提前还贷、债务重组、大额计提"
+      },
+      {
+        "key": "R07",
+        "label": "R07 债券发行或质押提升",
+        "criterion": "大规模债券发行、授信激增、控股股东质押比例大幅提升"
+      },
+      {
+        "key": "R08",
+        "label": "R08 股价异动",
+        "criterion": "区间涨幅/成交额显著偏离，可能伴关注函"
+      },
+      {
+        "key": "R09",
+        "label": "R09 控股股东变更",
+        "criterion": "老股东退出、新股东进场、董监高换血"
+      },
+      {
+        "key": "R10",
+        "label": "R10 董秘口径变化",
+        "criterion": "回复变模糊或改为以公告为准"
+      },
+      {
+        "key": "R11",
+        "label": "R11 频繁停牌",
+        "criterion": "小额停牌练手或传闻澄清停牌"
+      },
+      {
+        "key": "R12",
+        "label": "R12 招聘信息泄露",
+        "criterion": "异常岗位招聘指向重组/转型"
+      }
+    ],
+    "extra_required": [
+      {
+        "key": "timeline",
+        "label": "信号时间线",
+        "hint": "把判定为『出现』的信号按时间从早到晚排序，标出先后关系与聚集程度",
+        "expect": "list"
+      },
+      {
+        "key": "verdict",
+        "label": "综合判定",
+        "hint": "三选一：处于重组前戏 / 未处于重组前戏 / 无法判断；并给把握度百分比",
+        "expect": "conclusion"
+      },
+      {
+        "key": "stage_flag",
+        "label": "阶段标注",
+        "hint": "是否已进入正式重组程序（若已公告筹划重组，则前戏已结束）",
+        "expect": "conclusion"
+      },
+      {
+        "key": "top3_strong",
+        "label": "最强三条信号",
+        "hint": "列出并说明理由",
+        "expect": "list"
+      },
+      {
+        "key": "top3_weak",
+        "label": "最弱或存疑三条信号",
+        "hint": "列出并说明为何存疑",
+        "expect": "list"
+      },
+      {
+        "key": "disclaimer",
+        "label": "推断与免责",
+        "hint": "明确哪些结论属于推断（D 级），不能作为投资依据",
+        "expect": "text"
+      }
+    ]
+  },
+  "out_of_scope": {
+    "note": "本技能只做『重组前戏』这一棵子树。中心主题『AI咨询基本面偏』及其余浮动主题（公司自身造血能力、催化事件时间线、AIPDF搜索、AI系列）不在本次范围。",
+    "themes": [
+      {
+        "title": "AI咨询基本面偏（中心主题）",
+        "nodes": 28,
+        "note": "由技能 ai-fundamental-coverage 负责"
+      },
+      {
+        "title": "公司自身造血能力",
+        "nodes": 22
+      },
+      {
+        "title": "催化事件时间线",
+        "nodes": 6
+      },
+      {
+        "title": "AIPDF搜索",
+        "nodes": 5
+      },
+      {
+        "title": "AI系列",
+        "nodes": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,859 @@
+{
+  "schema": 1,
+  "bank_name": "AI咨询基本面偏",
+  "source": {
+    "file": "~/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/e07a1fe3d294a1a35a1b3d51c4c1afc1/Message/MessageTemp/100c537811a8eed78cba725b47e9c805/File/AI咨询基本面偏.emmx",
+    "sha256": "887cb742403853c9f9a166b1f1fd4caaa8b6bff865201ad42b39f039391a7e02",
+    "doc_modified": "2026-10-05 09:50:48",
+    "total_nodes": 86,
+    "in_scope_nodes": 28,
+    "in_scope_note": "只取中心主题『AI咨询基本面偏』树（含中心节点共 28 个）。8 个 MainTopic 是分类标题，不计入分母；其余 20 个节点（含 2 个非疑问句『产能 和收入 若无请明示』『供应链弹性 check』）逐条作答。"
+  },
+  "rules": {
+    "as_of": "必须由调用方给定基准日；导图里『2025 前三季度』『未来 2-3 年』『到 25 年 3 季度』一律相对基准日解读。",
+    "evidence": "所有数字必须带 来源（公告名/编号 + 日期，或投关/业绩说明会原文，或第三方数据机构名 + 链接）。拿不到就写『未披露』并给取数路径，禁止用推测、口径不明的『预计』『有望』填空。",
+    "no_merge": "一个原子核对项一行，禁止把多项合并进一句话；禁止用『综合来看』『整体表现良好』等无数字、无来源的话覆盖多项。",
+    "gap_ok": "『未披露/未能获取/不适用』+ 取数路径（具体去哪查、查什么文件名）算合格答案，不是失败。",
+    "element_line": "正文里每个原子核对项写成一行，格式：**<label>**：<答案>。label 必须与题库完全一致，一行一个，不得合并、不得改写。"
+  },
+  "modules": [
+    {
+      "id": "M1",
+      "title": "订单面",
+      "items": [
+        {
+          "id": "F01",
+          "source_type": "SubTopic",
+          "source_text": "公司当下及未来2-3年的在手订单情况？当前新订单获取能力？这些订单对2026-2028年业绩的支撑情况及尽量引用最新公告、投资者关系记录或业绩说明会原文数据",
+          "ask": "在手订单与新订单获取能力，及对 2026-2028 年业绩的支撑（必须引原文）",
+          "elements": [
+            {
+              "key": "backlog_amount",
+              "label": "在手订单金额",
+              "expect": "number",
+              "hint": "含截至日期；给绝对金额与币种"
+            },
+            {
+              "key": "backlog_trend",
+              "label": "在手订单同比变化",
+              "expect": "number",
+              "hint": "同比或环比百分比"
+            },
+            {
+              "key": "new_orders",
+              "label": "当期新签订单金额与增速",
+              "expect": "number"
+            },
+            {
+              "key": "coverage_2026",
+              "label": "订单对2026年收入的覆盖倍数或占比",
+              "expect": "number"
+            },
+            {
+              "key": "support_2027_2028",
+              "label": "对2027-2028年业绩的支撑判断",
+              "expect": "conclusion"
+            },
+            {
+              "key": "quote_source",
+              "label": "原文引用",
+              "expect": "evidence",
+              "hint": "至少 1 条公告/投关记录/业绩说明会原文，含日期与出处"
+            }
+          ]
+        },
+        {
+          "id": "F02",
+          "source_type": "SubTopic",
+          "source_text": "公司在合同或者协议的约束机制里做了哪些条款来增强协议的稳定性和执行力，避免协议取消的风险",
+          "ask": "合同/协议里有哪些增强稳定性与执行力的约束条款，能否降低协议取消风险",
+          "elements": [
+            {
+              "key": "clauses",
+              "label": "约束条款类型",
+              "expect": "list",
+              "hint": "预付款、违约金、最低采购量、独家条款、履约保证金、质保金、分期交付等"
+            },
+            {
+              "key": "clause_terms",
+              "label": "条款金额比例或期限",
+              "expect": "number",
+              "hint": "如预付款比例 %、违约金比例 %、锁定期"
+            },
+            {
+              "key": "clause_source",
+              "label": "条款出处",
+              "expect": "evidence",
+              "hint": "公告编号或合同公告名称 + 日期"
+            },
+            {
+              "key": "stability_conclusion",
+              "label": "对协议取消风险的缓释结论",
+              "expect": "conclusion"
+            }
+          ]
+        },
+        {
+          "id": "F03",
+          "source_type": "SubTopic",
+          "source_text": "定期跟踪订单充足的公司的订单转化情况，速度效率是快/慢，是否被其他同行挤压等情况",
+          "ask": "订单转化速度与效率，以及是否被同行挤压",
+          "elements": [
+            {
+              "key": "conversion_cycle",
+              "label": "订单转化周期",
+              "expect": "number",
+              "hint": "从签约到确认收入的平均月/季度数"
+            },
+            {
+              "key": "conversion_trend",
+              "label": "转化速度变化",
+              "expect": "conclusion",
+              "hint": "明确写 变快/变慢/持平 + 依据"
+            },
+            {
+              "key": "competitor_squeeze",
+              "label": "是否被同行挤压",
+              "expect": "conclusion",
+              "hint": "用份额、中标、客户结构、价格等证据，不要只给定性"
+            },
+            {
+              "key": "tracking_method",
+              "label": "可定期跟踪的口径",
+              "expect": "text",
+              "hint": "指标 + 更新频率 + 数据来源"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M2",
+      "title": "竞争力",
+      "items": [
+        {
+          "id": "F04",
+          "source_type": "SubTopic",
+          "source_text": "公司其技术竞争力， 如 专利 技术壁垒数量比较竞争者如何，产业的范围覆盖",
+          "ask": "专利与技术壁垒数量、与竞争者对比、产业覆盖范围",
+          "elements": [
+            {
+              "key": "patent_count",
+              "label": "专利数量",
+              "expect": "number",
+              "hint": "分发明专利/实用新型/授权，注明口径与截止日"
+            },
+            {
+              "key": "patent_compare",
+              "label": "与竞争对手专利对比",
+              "expect": "number",
+              "hint": "列出可比公司名称与各自数量"
+            },
+            {
+              "key": "core_tech",
+              "label": "核心技术壁垒清单",
+              "expect": "list"
+            },
+            {
+              "key": "industry_coverage",
+              "label": "产业覆盖范围",
+              "expect": "list",
+              "hint": "产品线/下游行业/地域"
+            }
+          ]
+        },
+        {
+          "id": "F05",
+          "source_type": "SubTopic",
+          "source_text": "公司近三年包括到25年3季度的研发投入占比净利润的比重，绝对金额以及 研发投入的方向是在哪里？是否匹配长期战略？研发支出的结构如何，技术迭代路径",
+          "ask": "近三年（含 25Q3）研发投入的绝对额、占净利润比重、方向、结构、战略匹配度与技术迭代路径",
+          "elements": [
+            {
+              "key": "rd_amount",
+              "label": "研发投入绝对金额",
+              "expect": "number",
+              "hint": "2023 / 2024 / 2025前三季度 分别给"
+            },
+            {
+              "key": "rd_ratio_np",
+              "label": "研发投入占净利润比重",
+              "expect": "number",
+              "hint": "逐年给；净利润为负时说明口径"
+            },
+            {
+              "key": "rd_ratio_rev",
+              "label": "研发投入占营收比重",
+              "expect": "number",
+              "hint": "补充口径，逐年给"
+            },
+            {
+              "key": "rd_direction",
+              "label": "研发投入方向",
+              "expect": "list"
+            },
+            {
+              "key": "rd_structure",
+              "label": "研发支出结构",
+              "expect": "number",
+              "hint": "费用化/资本化金额及占比、人员占比"
+            },
+            {
+              "key": "strategy_fit",
+              "label": "是否匹配长期战略",
+              "expect": "conclusion"
+            },
+            {
+              "key": "iteration_path",
+              "label": "技术迭代路径",
+              "expect": "text"
+            }
+          ]
+        },
+        {
+          "id": "F06",
+          "source_type": "SubTopic",
+          "source_text": "产品/技术方案是否属于高技术壁垒，在产业链的价值里占比多少",
+          "ask": "产品/技术方案是否高技术壁垒，在产业链价值中占比多少",
+          "elements": [
+            {
+              "key": "barrier_level",
+              "label": "是否属于高技术壁垒",
+              "expect": "conclusion",
+              "hint": "给依据：认证周期、替代难度、专利/工艺Know-how、客户验证"
+            },
+            {
+              "key": "value_share",
+              "label": "在产业链价值中占比",
+              "expect": "number",
+              "hint": "占整机/项目成本或价值的百分比；口径必须写清"
+            }
+          ]
+        },
+        {
+          "id": "F07",
+          "source_type": "SubTopic",
+          "source_text": "产品或零部件自制率多少，是否有关键环节产业链或全产业链的控制力，哪些产品或者部件是市场刚需？从技术深度，产品形态，客户层级和量产规模分析是否属于头部玩家",
+          "ask": "自制率、产业链控制力、刚需部件，并从四个维度判断是否头部玩家",
+          "elements": [
+            {
+              "key": "self_make_rate",
+              "label": "自制率",
+              "expect": "number"
+            },
+            {
+              "key": "chain_control",
+              "label": "关键环节或全产业链控制力",
+              "expect": "conclusion"
+            },
+            {
+              "key": "must_have_parts",
+              "label": "市场刚需产品部件",
+              "expect": "list"
+            },
+            {
+              "key": "tech_depth",
+              "label": "技术深度评价",
+              "expect": "conclusion"
+            },
+            {
+              "key": "product_form",
+              "label": "产品形态评价",
+              "expect": "conclusion"
+            },
+            {
+              "key": "customer_tier",
+              "label": "客户层级",
+              "expect": "list",
+              "hint": "主要客户名称与所处层级"
+            },
+            {
+              "key": "mass_production",
+              "label": "量产规模",
+              "expect": "number"
+            },
+            {
+              "key": "leader_verdict",
+              "label": "是否头部玩家",
+              "expect": "conclusion"
+            }
+          ]
+        },
+        {
+          "id": "F08",
+          "source_type": "SubTopic",
+          "source_text": "请汇总公司 2023 年以来公告的新建/扩建项目，列出基地位置、设计产能、总投资额、建设期、折旧年限；计算单位产能投资强度并与国内外行业平均对比",
+          "ask": "2023 年以来新建/扩建项目全要素明细与单位产能投资强度对比",
+          "elements": [
+            {
+              "key": "project_list",
+              "label": "项目清单",
+              "expect": "list",
+              "hint": "项目名称 + 基地位置，逐项列"
+            },
+            {
+              "key": "designed_capacity",
+              "label": "设计产能",
+              "expect": "number",
+              "hint": "逐项给；注明单位"
+            },
+            {
+              "key": "total_investment",
+              "label": "总投资额",
+              "expect": "number"
+            },
+            {
+              "key": "construction_period",
+              "label": "建设期",
+              "expect": "number"
+            },
+            {
+              "key": "depreciation_years",
+              "label": "折旧年限",
+              "expect": "number"
+            },
+            {
+              "key": "investment_intensity",
+              "label": "单位产能投资强度",
+              "expect": "number",
+              "hint": "总投资额 / 设计产能，写明计算式"
+            },
+            {
+              "key": "peer_intensity",
+              "label": "与国内外行业平均对比",
+              "expect": "number",
+              "hint": "列出对比对象名称与对方数值"
+            }
+          ]
+        },
+        {
+          "id": "F09",
+          "source_type": "SubTopic",
+          "source_text": "产能 和收入 若无请明示",
+          "ask": "产能与收入数据；若无必须明示",
+          "elements": [
+            {
+              "key": "capacity_data",
+              "label": "产能数据",
+              "expect": "number",
+              "hint": "若有：产能数值 + 单位 + 截止日 + 来源；若无：写『未披露』+ 取数路径"
+            },
+            {
+              "key": "revenue_data",
+              "label": "收入数据",
+              "expect": "number",
+              "hint": "分期给（2023/2024/2025前三季度）"
+            },
+            {
+              "key": "absence_statement",
+              "label": "缺失明示",
+              "expect": "text",
+              "hint": "任一数据不存在时，必须显式写『未披露』并说明去哪个文件查"
+            }
+          ]
+        },
+        {
+          "id": "F10",
+          "source_type": "SubTopic",
+          "source_text": "产品的 可靠性，系统整体效率，以及风险规避角度",
+          "ask": "产品可靠性、系统整体效率与风险规避",
+          "elements": [
+            {
+              "key": "reliability_evidence",
+              "label": "可靠性证据",
+              "expect": "list",
+              "hint": "认证、质保年限、故障率/MTBF、客户验证记录"
+            },
+            {
+              "key": "system_efficiency",
+              "label": "系统整体效率指标",
+              "expect": "number",
+              "hint": "如转换效率、良率、能耗、交付周期"
+            },
+            {
+              "key": "risk_mitigation",
+              "label": "风险规避措施",
+              "expect": "list",
+              "hint": "冗余设计、备份供应商、质保条款、保险"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "减持",
+      "items": [
+        {
+          "id": "F11",
+          "source_type": "SubTopic",
+          "source_text": "请列出 2024 年 1 月至今公司持股 5% 以上股东减持明细 请说明减持股东数量、减持股份数、金额、减持日期及截止日期",
+          "ask": "2024 年 1 月至今 5% 以上股东减持明细",
+          "elements": [
+            {
+              "key": "holder_list",
+              "label": "减持股东名单与数量",
+              "expect": "number",
+              "hint": "逐个列名 + 合计人数"
+            },
+            {
+              "key": "shares_sold",
+              "label": "减持股数",
+              "expect": "number",
+              "hint": "逐笔给；无则写『无减持』"
+            },
+            {
+              "key": "amount",
+              "label": "减持金额",
+              "expect": "number",
+              "hint": "逐笔给；注明按均价或区间价估算"
+            },
+            {
+              "key": "date_range",
+              "label": "减持日期",
+              "expect": "number",
+              "hint": "起止日期逐笔给"
+            },
+            {
+              "key": "completion",
+              "label": "截止日期与完成状态",
+              "expect": "conclusion",
+              "hint": "计划是否实施完毕/提前终止/仍在进行"
+            },
+            {
+              "key": "source",
+              "label": "公告来源",
+              "expect": "evidence",
+              "hint": "减持计划公告与进展公告编号 + 日期"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M4",
+      "title": "子公司布局",
+      "items": [
+        {
+          "id": "F12",
+          "source_type": "SubTopic",
+          "source_text": "列出近三年包括公司和其控股子公司对外投资合作和技术探索，股权融资情况、融资金额、是否形成规模化落地应用？ 及最新持股比例",
+          "ask": "近三年对外投资/合作/技术探索、股权融资、落地情况与最新持股比例",
+          "elements": [
+            {
+              "key": "investment_list",
+              "label": "对外投资合作事项清单",
+              "expect": "list",
+              "hint": "逐项：标的名称 + 时间 + 事项类型"
+            },
+            {
+              "key": "financing",
+              "label": "股权融资轮次与金额",
+              "expect": "number",
+              "hint": "逐轮给；注明投前/投后估值"
+            },
+            {
+              "key": "landing",
+              "label": "是否形成规模化落地应用",
+              "expect": "conclusion",
+              "hint": "给落地证据：收入、产能、客户或订单"
+            },
+            {
+              "key": "shareholding",
+              "label": "最新持股比例",
+              "expect": "number",
+              "hint": "逐标的给 %，注明截止日"
+            }
+          ]
+        },
+        {
+          "id": "F13",
+          "source_type": "SubTopic",
+          "source_text": "这些子公司是否有IPO计划或者已经规划了IPO的节奏亦或是在IPO辅导阶段？",
+          "ask": "子公司是否有 IPO 计划、节奏或处于辅导阶段",
+          "elements": [
+            {
+              "key": "ipo_subs",
+              "label": "涉及IPO的子公司",
+              "expect": "list",
+              "hint": "无则明确写『无』"
+            },
+            {
+              "key": "ipo_plan",
+              "label": "IPO计划与节奏",
+              "expect": "text",
+              "hint": "板块意向、时间表、已披露依据"
+            },
+            {
+              "key": "coaching",
+              "label": "是否处于辅导备案阶段",
+              "expect": "evidence",
+              "hint": "辅导备案公告/证监局公示名称 + 日期"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M5",
+      "title": "自身造血",
+      "items": [
+        {
+          "id": "F14",
+          "source_type": "SubTopic",
+          "source_text": "公司的 2025前三季度报告 从单季的经营活动现金流净额，回款效率如 销售商品，劳务现金/营收连续多季度比值是否大于100%，短期应收占比是否提升坏账计提比例是否下降，核心业务毛利率是否高于整体毛利率，净利润与经营活动现金流净额的匹配度，存货周转天数是否变短，合同负债情况和核心业务订单及产能利用率的 给我以表格的形式展示上述的数据，然后从这些角度分析公司自身造血的能力如何",
+          "ask": "2025 前三季度九项造血指标：先出表格，再据此判断造血能力",
+          "elements": [
+            {
+              "key": "single_q_ocf",
+              "label": "单季经营活动现金流净额",
+              "expect": "number",
+              "hint": "Q1/Q2/Q3 逐季给，注明单位"
+            },
+            {
+              "key": "cash_to_revenue",
+              "label": "销售收现比",
+              "expect": "number",
+              "hint": "销售商品提供劳务收到的现金/营业收入，连续多季度，标明是否>100%"
+            },
+            {
+              "key": "receivable_short_ratio",
+              "label": "短期应收占比变化",
+              "expect": "number"
+            },
+            {
+              "key": "bad_debt_ratio",
+              "label": "坏账准备计提比例变化",
+              "expect": "number"
+            },
+            {
+              "key": "core_gross_margin",
+              "label": "核心业务毛利率与整体毛利率",
+              "expect": "number",
+              "hint": "两个数都给，并给出是否高于的结论"
+            },
+            {
+              "key": "np_ocf_match",
+              "label": "净利润与经营现金流匹配度",
+              "expect": "number",
+              "hint": "净利润/经营活动现金流净额比值"
+            },
+            {
+              "key": "inventory_days",
+              "label": "存货周转天数变化",
+              "expect": "number"
+            },
+            {
+              "key": "contract_liability",
+              "label": "合同负债情况",
+              "expect": "number",
+              "hint": "金额 + 同比变化"
+            },
+            {
+              "key": "orders_capacity_util",
+              "label": "核心业务订单与产能利用率",
+              "expect": "number"
+            },
+            {
+              "key": "table",
+              "label": "指标表格",
+              "expect": "table",
+              "hint": "必须把上述指标排成 Markdown 表格"
+            },
+            {
+              "key": "verdict",
+              "label": "造血能力结论",
+              "expect": "conclusion",
+              "hint": "给强/中/弱判断 + 支撑最强的两条与最弱的两条"
+            }
+          ]
+        },
+        {
+          "id": "F15",
+          "source_type": "SubTopic",
+          "source_text": "这个数据是备货等原因造成负现金流，还是业务塌陷型的负现金流",
+          "ask": "负现金流归因：备货型还是业务塌陷型",
+          "elements": [
+            {
+              "key": "ocf_sign",
+              "label": "经营现金流实际方向",
+              "expect": "number",
+              "hint": "若为正现金流也要说明，不可跳过"
+            },
+            {
+              "key": "inventory_attribution",
+              "label": "备货因素影响",
+              "expect": "number",
+              "hint": "存货增加占用现金的金额"
+            },
+            {
+              "key": "receivable_attribution",
+              "label": "应收因素影响",
+              "expect": "number",
+              "hint": "应收账款增加占用现金的金额"
+            },
+            {
+              "key": "type_verdict",
+              "label": "归因结论",
+              "expect": "conclusion",
+              "hint": "明确写备货型/塌陷型/混合，并给判别依据"
+            }
+          ]
+        },
+        {
+          "id": "F16",
+          "source_type": "SubTopic",
+          "source_text": "资产产生现金流的效率和确定性",
+          "ask": "资产产生现金流的效率与确定性",
+          "elements": [
+            {
+              "key": "asset_efficiency",
+              "label": "资产创现效率指标",
+              "expect": "number",
+              "hint": "经营活动现金流净额/总资产、总资产周转率等，逐年给"
+            },
+            {
+              "key": "certainty",
+              "label": "现金流的确定性",
+              "expect": "conclusion",
+              "hint": "客户结构、合同负债、订单能见度、季节性"
+            },
+            {
+              "key": "asset_base",
+              "label": "资产结构与可变现性",
+              "expect": "list",
+              "hint": "轻重资产占比、在建工程、商誉、受限资产"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M6",
+      "title": "转型进入收获期/即将进入商用",
+      "items": [
+        {
+          "id": "F17",
+          "source_type": "SubTopic",
+          "source_text": "公司那些业务转型进入收获期，并分析驱动业绩实现 U 型反转的概率有多大",
+          "ask": "哪些业务进入收获期，U 型反转概率多大",
+          "elements": [
+            {
+              "key": "business_list",
+              "label": "进入收获期的业务",
+              "expect": "list",
+              "hint": "逐项列；无则明确写『无』"
+            },
+            {
+              "key": "evidence",
+              "label": "收获期证据",
+              "expect": "number",
+              "hint": "该业务收入/订单/毛利率/产能爬坡数据"
+            },
+            {
+              "key": "u_turn_probability",
+              "label": "U型反转概率",
+              "expect": "number",
+              "hint": "必须给明确概率或区间 + 打分依据（如订单覆盖、产能、现金）"
+            },
+            {
+              "key": "drivers",
+              "label": "驱动因素",
+              "expect": "list"
+            }
+          ]
+        },
+        {
+          "id": "F18",
+          "source_type": "SubTopic",
+          "source_text": "哪些因素或者条件可以判断出某个行业即将商用",
+          "ask": "判断某行业即将商用的因素与条件（通用方法论 + 落到本标的）",
+          "elements": [
+            {
+              "key": "conditions",
+              "label": "判断条件清单",
+              "expect": "list",
+              "hint": "技术成熟度、成本拐点、标准/牌照、政策补贴、龙头订单、产能投放"
+            },
+            {
+              "key": "thresholds",
+              "label": "可量化阈值",
+              "expect": "number",
+              "hint": "每条条件给阈值，如成本降至 X 元/kWh"
+            },
+            {
+              "key": "apply_to_target",
+              "label": "映射到本标的的观察指标",
+              "expect": "list",
+              "hint": "本标的当前处于哪一条，需要跟踪什么"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M7",
+      "title": "美股电话会议",
+      "items": [
+        {
+          "id": "F19",
+          "source_type": "SubTopic",
+          "source_text": "美股的第1234季度电话会议上确认xxx",
+          "needs_input": true,
+          "ask": "美股四个季度电话会上要确认的事项（原图 xxx 未填）",
+          "elements": [
+            {
+              "key": "needs_input",
+              "label": "待补输入",
+              "expect": "text",
+              "hint": "原图 xxx 位置缺内容：必须显式写出需要用户补齐『确认什么』，不得替用户猜"
+            },
+            {
+              "key": "q_framework",
+              "label": "四季度电话会确认框架",
+              "expect": "list",
+              "hint": "Q1-Q4 分别可确认的项：指引、订单、产能、毛利、资本开支、客户"
+            },
+            {
+              "key": "gap_statement",
+              "label": "输入缺口声明",
+              "expect": "text",
+              "hint": "写明：因 xxx 未填，本条按通用框架作答，补齐后可定点重跑"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "M8",
+      "title": "供应链弹性 check",
+      "items": [
+        {
+          "id": "F20",
+          "source_type": "MainTopic",
+          "source_text": "供应链弹性 check",
+          "ask": "供应链弹性检查（原图仅一行，按标准六项展开）",
+          "elements": [
+            {
+              "key": "supplier_concentration",
+              "label": "上游集中度",
+              "expect": "number",
+              "hint": "前五大供应商采购占比 %"
+            },
+            {
+              "key": "substitution",
+              "label": "关键物料替代方案",
+              "expect": "list",
+              "hint": "关键原材料/元器件 + 是否有第二供应商"
+            },
+            {
+              "key": "inventory_strategy",
+              "label": "库存与备货策略",
+              "expect": "text",
+              "hint": "原材料/在产/成品库存天数与备货节奏"
+            },
+            {
+              "key": "geo_exposure",
+              "label": "地缘与断供暴露",
+              "expect": "conclusion",
+              "hint": "海外采购占比、关税、出口管制清单风险"
+            },
+            {
+              "key": "capacity_geo",
+              "label": "产能地理分布",
+              "expect": "list"
+            },
+            {
+              "key": "switchability",
+              "label": "应急切换能力",
+              "expect": "conclusion",
+              "hint": "切换周期、认证成本、是否已做过压力测试"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rubric": {
+    "id": "RB",
+    "title": "公司自身造血能力 · 评分维度表",
+    "source": "导图浮动主题『公司自身造血能力』（属 M5 自身造血分支的判据展开，不作为独立分母）",
+    "note": "M5 的 F14–F16 回答完后，必须附本表：逐项给『改善/恶化/持平/无数据』+ 数字。本表不单独计入覆盖率，但缺表则 M5 视为不合格。",
+    "dimensions": [
+      {
+        "key": "ocf_sign",
+        "label": "经营活动现金流净额（正负）",
+        "criterion": "变大 / 负转正 / 大负转小负 均代表改善"
+      },
+      {
+        "key": "cash_to_revenue",
+        "label": "销售收现/营收连续多季度 >100%",
+        "criterion": "前期应收款当期回收，或当期以预收/现款结算为主 → 客户意愿强、收入质量高"
+      },
+      {
+        "key": "receivable",
+        "label": "应收账款余额下降 + 账龄结构",
+        "criterion": "短期应收占比提升且坏账准备计提比例下降"
+      },
+      {
+        "key": "core_margin",
+        "label": "核心业务毛利率高于整体毛利率",
+        "criterion": "核心业务毛利率 > 整体毛利率"
+      },
+      {
+        "key": "np_ocf",
+        "label": "净利润与经营活动现金流净额匹配度",
+        "criterion": "净利润/经营现金流净额 由 <1 逐步趋近 1，或由负转正"
+      },
+      {
+        "key": "inventory_days",
+        "label": "存货周转天数变小",
+        "criterion": "周转天数同比下降"
+      },
+      {
+        "key": "contract_liability",
+        "label": "合同负债（预收款项，未确认收入）",
+        "criterion": "余额增长 → 收入保障、锁定现金流入"
+      },
+      {
+        "key": "orders",
+        "label": "核心业务订单",
+        "criterion": "前装订单 / 长周期增长"
+      },
+      {
+        "key": "capacity_util",
+        "label": "产能利用率是否提升",
+        "criterion": "利用率同比提升"
+      }
+    ],
+    "after_module": "M5",
+    "columns": [
+      "维度",
+      "判定标准",
+      "实际数据",
+      "结论"
+    ],
+    "min_rows": 10,
+    "extra_required": []
+  },
+  "out_of_scope": {
+    "note": "以下浮动主题本次不纳入，仅登记备查，防止误当作必答项。",
+    "themes": [
+      {
+        "title": "催化事件时间线",
+        "nodes": 6
+      },
+      {
+        "title": "重组前戏",
+        "nodes": 21
+      },
+      {
+        "title": "AIPDF搜索",
+        "nodes": 5
+      },
+      {
+        "title": "AI系列",
+        "nodes": 4
+      }
+    ]
+  }
+}
