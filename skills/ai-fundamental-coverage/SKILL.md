@@ -140,12 +140,15 @@ python3 scripts/mindmap_import.py "<新导图.emmx>" --json /tmp/map.json --md /
 3. 三个 python 脚本之间靠**文件名与 markdown 约定**耦合（`parts/<模块>.md`、`blocks/<节点ID>.md`、
    `### [节点ID]` 标题、`**核对项名称**：答案` 行）。动其中任何一个格式约定，必须同时改另外两个
    并重跑 `selftest_gate.py`。
-4. 改完 `coverage_run.js` 必须做语法校验（脚本顶层 `return` 由 harness 包在函数里执行，
-   直接 `node --check` 会误报 `Illegal return statement`，要按同样方式包一层）：
+4. 改完 `coverage_run.js` **必须跑 dry-run 校验器**——用桩函数把整个编排真正执行一遍。
+   只做 `node --check` 是不够的：模板字符串里混进一个反引号时语法仍然合法，
+   但运行时会抛 `ReferenceError: number is not defined`，整个编排一步都不跑
+   （这个坑真实发生过）。
 
    ```bash
-   { echo "async function __wf(args, agent, pipeline, parallel, phase, log) {"; \
-     cat workflows/coverage_run.js; echo "}"; } > /tmp/wrap.mjs && node --check /tmp/wrap.mjs
+   node scripts/check_workflow.js workflows/coverage_run.js        # 必须 exit 0
    ```
 
-   最容易踩的坑：prompt 模板字符串里**不能出现反引号**，否则会截断模板、整个脚本语法报错。
+   校验器会报告阶段、agent 调用次数与返回值字段；失败时打印具体错误。
+5. prompt 模板字符串里**不要出现反引号**；核对项的类型标注（number/list/conclusion）
+   用普通括号表述，不要用反引号包裹。

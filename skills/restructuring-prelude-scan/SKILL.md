@@ -139,17 +139,20 @@ python3 ~/.agents/skills/restructuring-prelude-scan/scripts/selftest_gate.py   #
    冒烟时闸门必然报"其余模块缺失"，这是预期现象，不是故障。
 3. 四个 python 脚本靠**文件名与 markdown 约定**耦合（`parts/<模块>.md`、`blocks/<信号ID>.md`、
    `### [信号ID]` 标题、`**核对项名称**：答案` 行）。动任何一个格式约定，必须同时改其它几个并重跑 `selftest_gate.py`。
-4. 改完 `coverage_run.js` 必须做语法校验（脚本顶层 `return` 由 harness 包在函数里执行，
-   直接 `node --check` 会误报 `Illegal return statement`）：
+4. 改完 `coverage_run.js` **必须跑 dry-run 校验器**——用桩函数把整个编排真正执行一遍。
+   只做 `node --check` 是不够的：模板字符串里混进一个反引号时语法仍然合法，
+   但运行时会抛 `ReferenceError: number is not defined`，整个编排一步都不跑
+   （这个坑真实发生过）。
 
    ```bash
-   { echo "async function __wf(args, agent, pipeline, parallel, phase, log) {"; \
-     cat workflows/coverage_run.js; echo "}"; } > /tmp/wrap.mjs && node --check /tmp/wrap.mjs
+   node scripts/check_workflow.js workflows/coverage_run.js        # 必须 exit 0
    ```
 
-   最容易踩的坑：prompt 模板字符串里**不能出现反引号**，否则会截断模板、整个脚本语法报错。
-5. 补漏文件**只能按信号 ID 命名**（`R03.md`），不能拿核对项名称当文件名；装配对非 ID 命名的文件一律忽略。
-6. 补漏文件若自带提纲表头（`# 模块名`、标的行、`---`），装配只会保留信号标题**之后**的正文；
+   校验器会报告阶段、agent 调用次数与返回值字段；失败时打印具体错误。
+5. prompt 模板字符串里**不要出现反引号**；核对项的类型标注（number/list/conclusion）
+   用普通括号表述，不要用反引号包裹。
+6. 补漏文件**只能按信号 ID 命名**（`R03.md`），不能拿核对项名称当文件名；装配对非 ID 命名的文件一律忽略。
+7. 补漏文件若自带提纲表头（`# 模块名`、标的行、`---`），装配只会保留信号标题**之后**的正文；
    但更稳妥的写法是补丁文件首行就写 `### [信号ID] 原文`。
 
 ---

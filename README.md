@@ -182,11 +182,12 @@ python3 skills/ai-fundamental-coverage/scripts/mindmap_import.py "<导图.emmx>"
 **改编排脚本？** 先看 `SKILL.md` 的「维护须知」，里面记着两个已知坑：
 
 1. `agent()` 的 schema 只支持很小的 JSON Schema 子集，`enum` **必须同时写 `type`**，否则整个编排一步都不跑；
-2. prompt 模板字符串里**不能出现反引号**，否则会截断模板导致语法错误。改完用 harness 的包装方式做 `node --check`：
+2. prompt 模板字符串里**不能出现反引号**，否则会截断模板；此时语法仍然合法，
+   但运行时会抛 `ReferenceError`，`node --check` **拦不住**。改完必须跑 dry-run 校验器：
    ```bash
-   { echo "async function __wf(args, agent, pipeline, parallel, phase, log) {"; \
-     cat workflows/coverage_run.js; echo "}"; } > /tmp/wrap.mjs && node --check /tmp/wrap.mjs
+   node scripts/check_workflow.js workflows/coverage_run.js   # 必须 exit 0
    ```
+   它用桩函数把整个编排真正执行一遍，专门抓这类运行时错误。
 
 ---
 
